@@ -1,0 +1,31 @@
+name: 'zkg install'
+description: 'Install a Zeek package via zkg.'
+inputs:
+  pkg:
+    description: 'The name, URL, or path of the package to install'
+    required: false
+    default: '.'
+  pkg_version:
+    description: 'Zeek package version to use'
+    required: false
+    default: ''
+  pkg_sysdeps:
+    description: 'Additional Debian system packages to install'
+    required: false
+    default: ''
+  zeek_version:
+    description: 'Zeek version (zeek/zeek-lts/zeek-nightly, from the OBS builds)'
+    required: false
+    default: 'zeek'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - '--pkg'
+    - ${{ inputs.pkg }}
+    - '--pkg-version'
+    - ${{ inputs.pkg_version }}
+    - '--pkg-sysdeps'
+    - ${{ inputs.pkg_sysdeps }}
+    - '--zeek-version'
+    - ${{ inputs.zeek_version }}
