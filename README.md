@@ -6,7 +6,7 @@ support to additional distros and platforms via branches.
 
 ## Example usage
 
-Test the local Zeek package sources at verion tag `latest`, using the
+Test the local Zeek package sources at version tag `latest`, using the
 latest Zeek nightly build:
 
 ```yaml
