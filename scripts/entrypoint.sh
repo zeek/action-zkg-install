@@ -35,6 +35,13 @@ Arguments:
     - "zeek-lts": long-term support version
     - "zeek-nightly": latest nightly build
 
+  -l|--load-packages <yes|no>
+
+    After successful zkg install, launch/don't launch Zeek with the
+    installed package (or packages, if the requested one had
+    dependencies) in parse-mode. This can catch problems with packages
+    that do not include tests, or whose testing is too narrow.
+
 EOF
     exit 0
 }
@@ -43,6 +50,7 @@ zeekver="zeek"
 pkgurl="."
 pkgver=
 pkgsysdeps=
+loadpackages=no
 
 while [ "$#" -gt 0 ]; do
     case "$1" in
@@ -74,6 +82,14 @@ while [ "$#" -gt 0 ]; do
                 shift
             fi
             ;;
+        "-l"|"--load-packages")
+            if [ -n "$2" ] && [[ "$2" != -* ]]; then
+                if [ "$2" = yes ] || [ "$2" = true ] || [ "$2" = 1 ]; then
+                    loadpackages=yes
+                fi
+                shift
+            fi
+            ;;
         *)
             ;;
     esac
@@ -82,6 +98,15 @@ done
 
 export PATH=$PATH:/opt/zeek/bin
 
+if [ -n "$GITHUB_WORKSPACE" ]; then
+    # When running in GitHub, we preserve artifacts for later
+    # retrieval. We rely on $GITHUB_WORKSPACE, which the Github VM
+    # shares with the container.
+    export ARTIFACTS_DIR=$GITHUB_WORKSPACE/.action-zkg-install/artifacts
+    rm -rf $ARTIFACTS_DIR
+    mkdir -p $ARTIFACTS_DIR
+fi
+
 $dir/zeek-install.sh "$zeekver" || exit $?
 
 if [ -n "$pkgsysdeps" ]; then
@@ -89,11 +114,11 @@ if [ -n "$pkgsysdeps" ]; then
 fi
 
 $dir/zkg.sh "$pkgurl" "$pkgver"
-
 res=$?
 
-if [ $res -ne 0 ]; then
-    $dir/artifacts.sh
+if [ $res -eq 0 ] && [ $loadpackages = yes ]; then
+    $dir/zeek-loadpackages.sh
+    res=$?
 fi
 
 exit $res

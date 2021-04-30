@@ -40,6 +40,12 @@ The action supports the following inputs:
   the latest long-term-support release, and `zeek-nightly` for the
   latest nightly Zeek build.
 
+- `load_packages`: when enabled (by passing "yes", "true", or "1"), a
+  successful package installation via zkg is followed by a parse-only
+  Zeek invocation that loads all of zkg's installed packages. This can
+  catch basic problems in a package that doesn't include tests, but
+  also detect more subtle ones that its tests might not cover.
+
 ## Artifacts
 
 On failure, the action collects `zkg` logs in case you'd like to process them
