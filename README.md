@@ -54,7 +54,8 @@ into artifacts, output them, etc. After the action completes, the logs reside in
 
 ## Versions
 
-The current version of this action is `v1`.
+The latest released version of this action is `v1`. In-development work
+is available by using the action with `@master`.
 
 ## Docker
 
