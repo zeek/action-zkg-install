@@ -63,7 +63,7 @@ Test the local Zeek package sources at version `v1.2.3`, with the LTS release:
 - uses: actions/checkout@v2
   with:
     fetch-depth: 0
-- uses: zeek/action-zkg-install@v1
+- uses: zeek/action-zkg-install@v1.1
   with:
     pkg_version: v1.2.3
     zeek_version: zeek-lts
@@ -72,7 +72,7 @@ Test the local Zeek package sources at version `v1.2.3`, with the LTS release:
 Use `zkg'`s default install logic, with the Zeek nightly build:
 
 ```yaml
-- uses: zeek/action-zkg-install@v1
+- uses: zeek/action-zkg-install@v1.1
   with:
     pkg: ${{ github.server_url }}/${{ github.repository }}
     zeek_version: zeek-nightly
@@ -95,7 +95,7 @@ artifact upload snippet:
 
 ## Versions
 
-The latest released version of this action is `v1`. In-development work
+The latest released version of this action is `v1.1`. In-development work
 is available by using the action with `@master`.
 
 ## Docker
