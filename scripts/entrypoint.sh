@@ -28,6 +28,11 @@ Arguments:
     external dependencies that packages with a build_command might
     require.
 
+  -u|--pkg-uservars <name=val> [<name=val> ...]
+
+    A whitespace-separated list of "name=val" pairs that spell out
+    zkg user variables to define during the package build process.
+
   -z|--zeek-version <OBS version>
 
     Zeek version: one of the supported OBS Zeek builds:
@@ -50,6 +55,7 @@ zeekver="zeek"
 pkgurl="."
 pkgver=
 pkgsysdeps=
+pkguservars=()
 loadpackages=no
 
 while [ "$#" -gt 0 ]; do
@@ -75,6 +81,12 @@ while [ "$#" -gt 0 ]; do
                 pkgsysdeps="$2"
                 shift
             fi
+            ;;
+        "-u"|"--pkg-uservars")
+            while [ -n "$2" ] && [[ "$2" != -* ]]; do
+                pkguservars+=("$2")
+                shift
+            done
             ;;
         "-z"|"--zeek-version")
             if [ -n "$2" ] && [[ "$2" != -* ]]; then
@@ -113,7 +125,7 @@ if [ -n "$pkgsysdeps" ]; then
     apt-get install -y $pkgsysdeps || exit $?
 fi
 
-$dir/zkg.sh "$pkgurl" "$pkgver"
+$dir/zkg.sh --pkg "$pkgurl" --pkg-version "$pkgver" --pkg-uservars "${pkguservars[@]}"
 res=$?
 
 if [ $res -eq 0 ] && [ $loadpackages = yes ]; then

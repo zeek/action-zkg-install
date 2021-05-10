@@ -1,15 +1,43 @@
 #! /usr/bin/env bash
 set -e
 
-pkgurl="$1"
-pkgver="$2"
+pkgurl=
+pkgverarg=
+pkgverdesc=
 
-if [ -n "$pkgver" ]; then
-    pkgverarg="--version $pkgver"
-    pkgverdesc="version $pkgver"
-fi
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        "-p"|"--pkg")
+            if [ -n "$2" ] && [[ "$2" != -* ]]; then
+                pkgurl="$2"
+                shift
+            fi
+            ;;
+        "-v"|"--pkg-version")
+            if [ -n "$2" ] && [[ "$2" != -* ]]; then
+                pkgverarg="--version $2"
+                pkgverdesc="version $2"
+                shift
+            fi
+            ;;
+        "-u"|"--pkg-uservars")
+            if [ -n "$2" ] && [[ "$2" != -* ]]; then
+                echo "Defining user variables:"
+                while [ -n "$2" ] && [[ "$2" != -* ]]; do
+                    echo "- $2"
+                    export "$2"
+                    shift
+                done
+            fi
+            ;;
+        *)
+            ;;
+    esac
+    shift
+done
 
-echo "Installing package from '$pkgurl', ${pkgverdesc:-unversioned}"
+
+echo "Installing package from '$pkgurl', ${pkgverdesc:-unversioned}:"
 zkg install --force $pkgverarg $pkgurl || {
     zkg_logs_dir=$(zeek-config --prefix)/var/lib/zkg/logs
     for log in $zkg_logs_dir/*-build.log; do

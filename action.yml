@@ -13,6 +13,10 @@ inputs:
     description: 'Additional Debian system packages to install'
     required: false
     default: ''
+  pkg_uservars:
+    description: 'User variables to define for the package build'
+    required: false
+    default: ''
   zeek_version:
     description: 'Zeek version (zeek/zeek-lts/zeek-nightly, from the OBS builds)'
     required: false
@@ -31,6 +35,8 @@ runs:
     - ${{ inputs.pkg_version }}
     - '--pkg-sysdeps'
     - ${{ inputs.pkg_sysdeps }}
+    - '--pkg-uservars'
+    - ${{ inputs.pkg_uservars }}
     - '--zeek-version'
     - ${{ inputs.zeek_version }}
     - '--load-packages'

@@ -38,6 +38,11 @@ The action supports the following inputs:
 - `pkg_sysdeps`: additional Debian packages to install in order to
   satisfy external dependencies required by the package.
 
+- `pkg_uservars`: if the package requires
+  [user variable](https://docs.zeek.org/projects/package-manager/en/stable/package.html#user-vars-field)
+  definitions, use this input to provide them as space-separated list of
+  "name=value" pairs.
+
 - `zeek_version`: the Zeek version to use, based on our
   [binary packages](https://github.com/zeek/zeek/wiki/Binary-Packages):
   `zeek` for the latest release, `zeek-lts` for the latest
