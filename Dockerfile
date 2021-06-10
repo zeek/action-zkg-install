@@ -3,7 +3,6 @@ LABEL maintainer="Christian Kreibich <christian@corelight.com>"
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN echo 'Acquire::https::Timeout "15";' >/etc/apt/apt.conf.d/https-timeout
 RUN apt-get -y update
 
 # Install some common dependencies to reduce dependencies pulled in by
@@ -16,7 +15,7 @@ RUN apt-get -y install bison bzip2 cmake curl flex g++ gcc git gpg libmaxminddb-
 # https://software.opensuse.org//download.html?project=security%3Azeek&package=zeek-nightly:
 RUN echo 'deb http://download.opensuse.org/repositories/security:/zeek/Debian_10/ /' \
     | tee /etc/apt/sources.list.d/security:zeek.list
-RUN curl -fsSL -m 15 https://download.opensuse.org/repositories/security:zeek/Debian_10/Release.key \
+RUN curl -fsSL https://download.opensuse.org/repositories/security:zeek/Debian_10/Release.key \
     | gpg --dearmor \
     | tee /etc/apt/trusted.gpg.d/security_zeek.gpg > /dev/null
 
