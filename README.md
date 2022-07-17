@@ -95,8 +95,8 @@ artifact upload snippet:
 
 ## Versions
 
-The latest released version of this action is `v1.1`. In-development work
-is available by using the action with `@master`.
+The latest released version of this action is `v1.2` and recommended for general
+use. In-development work is available by using the action with `@master`.
 
 ## Docker
 
