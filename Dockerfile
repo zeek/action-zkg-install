@@ -1,4 +1,4 @@
-FROM debian:10
+FROM debian:11
 LABEL maintainer="Christian Kreibich <christian@corelight.com>"
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -14,9 +14,9 @@ RUN apt-get -y install bison bzip2 cmake curl flex g++ gcc git gpg libmaxminddb-
 
 # Set up repo to install from SUSE OBS, as per
 # https://software.opensuse.org//download.html?project=security%3Azeek&package=zeek-nightly:
-RUN echo 'deb http://download.opensuse.org/repositories/security:/zeek/Debian_10/ /' \
+RUN echo 'deb http://download.opensuse.org/repositories/security:/zeek/Debian_11/ /' \
     | tee /etc/apt/sources.list.d/security:zeek.list
-RUN curl -fsSL -m 15 https://download.opensuse.org/repositories/security:zeek/Debian_10/Release.key \
+RUN curl -fsSL -m 15 https://download.opensuse.org/repositories/security:zeek/Debian_11/Release.key \
     | gpg --dearmor \
     | tee /etc/apt/trusted.gpg.d/security_zeek.gpg > /dev/null
 
