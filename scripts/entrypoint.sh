@@ -125,6 +125,11 @@ if [ -n "$pkgsysdeps" ]; then
     apt-get install -y $pkgsysdeps || exit $?
 fi
 
+# If installing a local package, add it the path to safe.directory
+if [ "$pkgurl" == "." ]; then
+    /usr/bin/git config --global --add safe.directory $(pwd)
+fi
+
 $dir/zkg.sh --pkg "$pkgurl" --pkg-version "$pkgver" --pkg-uservars "${pkguservars[@]}"
 res=$?
 
