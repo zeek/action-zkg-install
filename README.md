@@ -60,10 +60,10 @@ The action supports the following inputs:
 Test the local Zeek package sources at version `v1.2.3`, with the LTS release:
 
 ```yaml
-- uses: actions/checkout@v2
+- uses: actions/checkout@v3
   with:
     fetch-depth: 0
-- uses: zeek/action-zkg-install@v1.1
+- uses: zeek/action-zkg-install@v2
   with:
     pkg_version: v1.2.3
     zeek_version: zeek-lts
@@ -72,7 +72,7 @@ Test the local Zeek package sources at version `v1.2.3`, with the LTS release:
 Use `zkg'`s default install logic, with the Zeek nightly build:
 
 ```yaml
-- uses: zeek/action-zkg-install@v1.1
+- uses: zeek/action-zkg-install@v2
   with:
     pkg: ${{ github.server_url }}/${{ github.repository }}
     zeek_version: zeek-nightly
@@ -95,8 +95,9 @@ artifact upload snippet:
 
 ## Versions
 
-The latest released version of this action is `v1.2` and recommended for general
-use. In-development work is available by using the action with `@master`.
+The latest version of this action is `v2.0.0`, with a corresponding `v2` tag
+tracking the latest `v2.x.y` release. In-development work is available by using
+the action with `@master`.
 
 ## Docker
 
