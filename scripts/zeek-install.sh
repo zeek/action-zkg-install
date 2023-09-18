@@ -9,8 +9,8 @@ if [ -z "$package" ]; then
     exit 1
 fi
 
-if ! [[ "$package" =~ ^(zeek|zeek-lts|zeek-nightly)$ ]]; then
-    echo "Zeek package version must be 'zeek', 'zeek-lts', or 'zeek-nightly'."
+if ! [[ "$package" =~ ^(zeek|zeek-lts|zeek-nightly|zeek-[0-9]+\.0)$ ]]; then
+    echo "Zeek package version must be 'zeek', 'zeek-lts', 'zeek-nightly' or 'zeek-<LTS version>.0'."
     exit 1
 fi
 

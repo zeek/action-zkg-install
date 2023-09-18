@@ -39,6 +39,7 @@ Arguments:
     - "zeek": latest released Zeek version (default)
     - "zeek-lts": long-term support version
     - "zeek-nightly": latest nightly build
+    - "zeek-X.0": explicitly versioned LTS package
 
   -l|--load-packages <yes|no>
 
