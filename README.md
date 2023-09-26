@@ -95,7 +95,7 @@ artifact upload snippet:
 
 ## Versions
 
-The latest version of this action is `v2.0.0`, with a corresponding `v2` tag
+The latest version of this action is `v2.1.0`, with a corresponding `v2` tag
 tracking the latest `v2.x.y` release. In-development work is available by using
 the action with `@master`.
 
