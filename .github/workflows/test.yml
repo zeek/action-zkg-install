@@ -1,0 +1,41 @@
+name: Check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+  schedule:
+    # Run a cron job on Monday at 3:42 AM.
+    - cron: '42 3 * * 1'
+
+jobs:
+  run_action:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - zeek
+          - zeek-lts
+          - zeek-nightly
+          - zeek-5.0
+          - zeek-6.0
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+      - name: Install zkg
+        run: |
+          pip3 install zkg
+      - name: Set up test repo
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+
+          zkg create --packagedir test --user-var name=Foo
+      - name: Run action
+        uses: ./
+        with:
+          pkg: test
+          load_packages: true
+          zeek_version: ${{ matrix.version }}

@@ -47,7 +47,7 @@ The action supports the following inputs:
   [binary packages](https://github.com/zeek/zeek/wiki/Binary-Packages):
   `zeek` for the latest release, `zeek-lts` for the latest
   long-term-support release, and `zeek-nightly` for the latest nightly
-  Zeek build.
+  Zeek build. LTS release versions can also be pinned using `zeek-6.0`.
 
 - `load_packages`: when enabled (by passing `yes`, `true`, or `1`), a
   successful package installation via zkg is followed by a parse-only
