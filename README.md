@@ -1,8 +1,7 @@
 # Github Action for Testing Zeek Packages
 
 This is a Github Action that will run `zkg install` on a Zeek
-package. It currently runs Debian 10 via Docker, but we may broaden
-support to additional distros and platforms in the future.
+package for a variety of Zeek versions. It runs Debian 13 via Docker.
 
 ## Input arguments
 
