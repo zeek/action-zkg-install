@@ -126,9 +126,13 @@ if [ -n "$pkgsysdeps" ]; then
     apt-get install -y $pkgsysdeps || exit $?
 fi
 
-# If installing a local package, add it the path to safe.directory
+# If installing a local package, avoid mixed repo ownership issues.  Being
+# specific here about directories proved troublesome: in some settings git
+# required listing multiple directories, and using a "/*" suffix didn't work
+# either. Sidestep this altogether by disabling the safety mechanism in this
+# container.
 if [ "$pkgurl" == "." ]; then
-    /usr/bin/git config --global --add safe.directory $(pwd)
+    /usr/bin/git config --global --add safe.directory "*"
 fi
 
 $dir/zkg.sh --pkg "$pkgurl" --pkg-version "$pkgver" --pkg-uservars "${pkguservars[@]}"
